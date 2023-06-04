@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="All Test Suite">
+    <test verbose="2" preserve-order="true" name="C:/gitHubProjects/otc/restAssuredApiTest">
+        <classes>
+            <class name="com.jsonServerTest.read.GetPostTest"></class>
+            <class name="com.jsonServerTest.read.GetCommentsTest"></class>
+            <class name="com.jsonServerTest.write.PostsTest"></class>
+            <class name="com.jsonServerTest.write.DynamicPostTest"></class>
+            <class name="com.jsonServerTest.read.DynamicRead"></class>
+
+        </classes>
+    </test>
+</suite>
