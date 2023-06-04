@@ -13,7 +13,7 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
 
-public class PostsTest extends BasePublicApiTest {
+public class StaticPostsTest extends BasePublicApiTest {
 
     @Test
     public void createPostUsingMapShouldSucceed() {

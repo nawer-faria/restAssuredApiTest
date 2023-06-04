@@ -5,9 +5,9 @@
         <classes>
             <class name="com.jsonServerTest.read.GetPostTest"></class>
             <class name="com.jsonServerTest.read.GetCommentsTest"></class>
-            <class name="com.jsonServerTest.write.PostsTest"></class>
+            <class name="com.jsonServerTest.write.StaticPostsTest"></class>
             <class name="com.jsonServerTest.write.DynamicPostTest"></class>
-            <class name="com.jsonServerTest.read.DynamicRead"></class>
+            <class name="com.jsonServerTest.read.DynamicGetCommentTest"></class>
 
         </classes>
     </test>
