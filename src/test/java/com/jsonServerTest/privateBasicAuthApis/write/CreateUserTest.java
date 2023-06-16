@@ -1,6 +1,6 @@
-package com.jsonServerTest.privateRestApis.write;
+package com.jsonServerTest.privateBasicAuthApis.write;
 
-import com.jsonServerTest.privateRestApis.BasePrivateRestApiTest;
+import com.jsonServerTest.privateBasicAuthApis.BaseBasicAuthApiTest;
 import com.thedeanda.lorem.LoremIpsum;
 import io.restassured.http.ContentType;
 import org.json.simple.JSONObject;
@@ -9,7 +9,7 @@ import org.testng.annotations.Test;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 
-public class CreateUserTest extends BasePrivateRestApiTest {
+public class CreateUserTest extends BaseBasicAuthApiTest {
 
     @Test
     public void CreateUserShouldSucceed() {
@@ -38,7 +38,7 @@ public class CreateUserTest extends BasePrivateRestApiTest {
     @Test
     public void updateUserShouldSucceed() {
 
-        int userId = given()
+        String userId = given()
                 .contentType(ContentType.JSON)
                 .auth().basic("admin", "12345")
                 .log().uri()
@@ -46,7 +46,7 @@ public class CreateUserTest extends BasePrivateRestApiTest {
                 .get("/users")
                 .then()
                 .statusCode(200)
-                .extract().jsonPath().getInt("data[0].user_id");
+                .extract().jsonPath().getString("data[0].user_id");
 
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("email", LoremIpsum.getInstance().getEmail());
@@ -72,7 +72,7 @@ public class CreateUserTest extends BasePrivateRestApiTest {
     @Test
     public void deleteUserShouldSucceed() {
 
-        int userId = given()
+        String userId = given()
                 .contentType(ContentType.JSON)
                 .auth().basic("admin", "12345")
                 .log().uri()
@@ -80,7 +80,7 @@ public class CreateUserTest extends BasePrivateRestApiTest {
                 .get("/users")
                 .then()
                 .statusCode(200)
-                .extract().jsonPath().getInt("data[0].user_id");
+                .extract().jsonPath().getString("data[0].user_id");
 
 
         given()

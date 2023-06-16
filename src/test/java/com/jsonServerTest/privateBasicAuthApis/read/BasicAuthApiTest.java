@@ -1,13 +1,13 @@
-package com.jsonServerTest.privateRestApis.read;
+package com.jsonServerTest.privateBasicAuthApis.read;
 
-import com.jsonServerTest.privateRestApis.BasePrivateRestApiTest;
+import com.jsonServerTest.privateBasicAuthApis.BaseBasicAuthApiTest;
 import io.restassured.http.ContentType;
 import org.testng.annotations.Test;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 
-public class BasicAuthApiTest extends BasePrivateRestApiTest {
+public class BasicAuthApiTest extends BaseBasicAuthApiTest {
 
     @Test
     public void getUserListShouldSucceed() {
@@ -27,7 +27,7 @@ public class BasicAuthApiTest extends BasePrivateRestApiTest {
 
     @Test
     public void getUserListDetailShouldSucceed() {
-        int userId = given()
+        String userId = given()
                 .contentType(ContentType.JSON)
                 .auth().basic("admin", "12345")
                 .log().uri()
@@ -38,7 +38,7 @@ public class BasicAuthApiTest extends BasePrivateRestApiTest {
                 .statusCode(200)
 //                .body("success", equalTo("true"))
 //                .body("message", equalTo("success"))
-        .extract().jsonPath().getInt("data[0].user_id");
+        .extract().jsonPath().getString("data[0].user_id");
 
         given()
                 .contentType(ContentType.JSON)
@@ -51,6 +51,6 @@ public class BasicAuthApiTest extends BasePrivateRestApiTest {
                 .statusCode(200)
                 .body("success", equalTo(true))
                 .body("data[0].user_id", equalTo(userId))
-                .body("message", equalTo("success"));
+                .body("message", equalTo("Success"));
     }
 }

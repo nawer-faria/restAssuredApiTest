@@ -1,9 +1,11 @@
-package com.jsonServerTest.privateRestApis;
+package com.jsonServerTest.privateBasicAuthApis;
 
 import io.restassured.RestAssured;
+import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.specification.RequestSpecification;
 import org.testng.annotations.BeforeClass;
 
-public class BasePrivateRestApiTest {
+public class BaseBasicAuthApiTest {
 
     @BeforeClass
     public void setup(){
@@ -12,4 +14,5 @@ public class BasePrivateRestApiTest {
         RestAssured.basePath="/api/auth";
         RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
     }
+
 }
