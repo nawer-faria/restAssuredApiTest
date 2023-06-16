@@ -1,21 +1,29 @@
-package com.jsonServerTest.write;
+package com.jsonServerTest.publicRestApis.write;
 
-import com.jsonServerTest.BasePublicApiTest;
+import com.jsonServerTest.publicRestApis.BasePublicApiTest;
 import com.thedeanda.lorem.LoremIpsum;
 import org.json.simple.JSONObject;
 import org.testng.annotations.Test;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.notNullValue;
 
-public class DynamicPostTest extends BasePublicApiTest {
+public class DynamicCommentsTest extends BasePublicApiTest {
     @Test
-    public void createPostUsingJsonShouldSucceed() {
-        String authorName = LoremIpsum.getInstance().getName();
+    public void dynamicCreateCommentsShouldSucceed() {
+        int postId = given()
+                .log().uri()
+                .when()
+                .get("/posts")
+                .then()
+                .statusCode(200)
+                .log().body()
+                .extract().jsonPath().getInt("[0].id");
+
+        String body = LoremIpsum.getInstance().getTitle(2);
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("title", LoremIpsum.getInstance().getTitle(2));
-        jsonObject.put("author", authorName);
+        jsonObject.put("postId", postId);
+        jsonObject.put("body", body);
 
         given()
                 .header("Content-Type", "application/json")
@@ -23,19 +31,16 @@ public class DynamicPostTest extends BasePublicApiTest {
                 .log().uri()
                 .log().body()
                 .when()
-                .post("/posts")
+                .post("/comments")
                 .then()
                 .statusCode(201)
-                .log().body()
-                .body("author", equalTo(authorName))
-                .body("id", notNullValue());
+                .log().body();
     }
 
-
     @Test
-    public void dynamicallyReplacePostUsingJsonShouldSucceed() {
+    public void dynamicReplaceCommentsShouldSucceed() {
         int postId = given()
-                .log().uri() //to print url
+                .log().uri()
                 .when()
                 .get("/posts")
                 .then()
@@ -43,10 +48,19 @@ public class DynamicPostTest extends BasePublicApiTest {
                 .log().body()
                 .extract().jsonPath().getInt("[0].id");
 
-        String authorName = LoremIpsum.getInstance().getName();
+        int commentId = given()
+                .log().uri()
+                .when()
+                .get("/comments")
+                .then()
+                .statusCode(200)
+                .log().body()
+                .extract().jsonPath().getInt("[0].id");
+
+        String body = LoremIpsum.getInstance().getTitle(2);
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("title", LoremIpsum.getInstance().getTitle(2));
-        jsonObject.put("author", authorName);
+        jsonObject.put("postId", postId);
+        jsonObject.put("body", body);
 
         given()
                 .header("Content-Type", "application/json")
@@ -54,29 +68,28 @@ public class DynamicPostTest extends BasePublicApiTest {
                 .log().uri()
                 .log().body()
                 .when()
-                .put("/posts/{postId}", postId)
+                .put("/comments/{commentId}", commentId)
                 .then()
                 .statusCode(200)
                 .log().body()
-                .body("author", equalTo(authorName))
-                .body("id", equalTo(postId))
-                .body("id", notNullValue());
+                .body("body", equalTo(body));
     }
 
     @Test
-    public void dynamicallyUpdatePostUsingJsonShouldSucceed() {
-        int postId = given()
-                .log().uri() //to print url
+    public void dynamicUpdateCommentsShouldSucceed() {
+
+        int commentId = given()
+                .log().uri()
                 .when()
-                .get("/posts")
+                .get("/comments")
                 .then()
                 .statusCode(200)
                 .log().body()
                 .extract().jsonPath().getInt("[0].id");
 
-        String authorName = LoremIpsum.getInstance().getName();
+        String body = LoremIpsum.getInstance().getTitle(2);
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("author", authorName);
+        jsonObject.put("body", body);
 
         given()
                 .header("Content-Type", "application/json")
@@ -84,21 +97,20 @@ public class DynamicPostTest extends BasePublicApiTest {
                 .log().uri()
                 .log().body()
                 .when()
-                .patch("/posts/{postId}", postId)
+                .patch("/comments/{commentId}", commentId)
                 .then()
                 .statusCode(200)
                 .log().body()
-                .body("author", equalTo(authorName))
-                .body("id", equalTo(postId))
-                .body("id", notNullValue());
+                .body("body", equalTo(body));
     }
 
     @Test
-    public void dynamicallyDeletePostUsingJsonShouldSucceed() {
-        int postId = given()
-                .log().uri() //to print url
+    public void dynamicDeleteCommentsShouldSucceed() {
+
+        int commentId = given()
+                .log().uri()
                 .when()
-                .get("/posts")
+                .get("/comments")
                 .then()
                 .statusCode(200)
                 .log().body()
@@ -108,7 +120,7 @@ public class DynamicPostTest extends BasePublicApiTest {
                 .log().uri()
                 .log().body()
                 .when()
-                .delete("/posts/{postId}", postId)
+                .patch("/comments/{commentId}", commentId)
                 .then()
                 .statusCode(200)
                 .log().body();

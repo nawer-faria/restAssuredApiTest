@@ -1,6 +1,6 @@
-package com.jsonServerTest.write;
+package com.jsonServerTest.publicRestApis.write;
 
-import com.jsonServerTest.BasePublicApiTest;
+import com.jsonServerTest.publicRestApis.BasePublicApiTest;
 import com.thedeanda.lorem.LoremIpsum;
 import org.json.simple.JSONObject;
 import org.testng.annotations.Test;

@@ -1,6 +1,6 @@
-package com.jsonServerTest.read;
+package com.jsonServerTest.publicRestApis.read;
 
-import com.jsonServerTest.BasePublicApiTest;
+import com.jsonServerTest.publicRestApis.BasePublicApiTest;
 import org.testng.annotations.Test;
 
 import static io.restassured.RestAssured.given;
@@ -8,18 +8,18 @@ import static org.hamcrest.Matchers.equalTo;
 
 public class GetPostTest extends BasePublicApiTest {
 
-    @Test(timeOut = 2000)
+    @Test
     public void getPostsShouldSucceed() {
         given()
-                .log().uri() //to print url
+                .log().uri()
                 .when()
-                .get("/posts")
+                .get("/posts/7")
                 .then()
                 .statusCode(200)
-                .log().body();   // to print response jon
-//                .body("id", equalTo(1))
-//                .body("title", equalTo("json-server"));
+                .log().body()
+        .body("id", equalTo(6));
     }
+
 
     @Test(timeOut = 2000)
     public void getPostShouldSucceed() {

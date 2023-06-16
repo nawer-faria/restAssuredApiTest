@@ -1,8 +1,7 @@
-package com.jsonServerTest.write;
+package com.jsonServerTest.publicRestApis.write;
 
-import com.jsonServerTest.BasePublicApiTest;
+import com.jsonServerTest.publicRestApis.BasePublicApiTest;
 import com.thedeanda.lorem.LoremIpsum;
-import netscape.javascript.JSObject;
 import org.json.simple.JSONObject;
 import org.testng.annotations.Test;
 
@@ -47,8 +46,9 @@ public class StaticPostsTest extends BasePublicApiTest {
 
         // Sending request body using Json
         String authorName = LoremIpsum.getInstance().getName();
+
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("title", LoremIpsum.getInstance().getTitle(2));
+        jsonObject.put("title", "Api TESTING");
         jsonObject.put("author", authorName);
 
         given()
